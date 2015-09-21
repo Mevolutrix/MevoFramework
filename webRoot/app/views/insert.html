@@ -1,0 +1,20 @@
+<div ng-show="!form.submitted">
+    <div class="field row">
+        <label class="col-md-3">Form ID:</label>
+        <label class="col-md-9" ng-bind="showid"></label>
+    </div>
+    <br>
+    <!--     <div ng-show="!update">
+        {{data}}
+    </div> -->
+    <form name="myForm" id="myForm">
+        <div ng-repeat="field in form.form_fields">
+            <field-directive field="field" data="data"></field-directive>
+        </div>
+    </form>
+    <div class="form-actions text-center">
+        <button class="btn btn-success right" type="button" ng-show="!update" ng-disabled="!myForm.$valid" ng-click="addData()"><i class="glyphicon glyphicon-ok"></i> 提交 </button>
+        <button class="btn btn-success right" type="button" ng-show="update" ng-disabled="!myForm.$valid" ng-click="updateData()"><i class="glyphicon glyphicon-ok"></i> 提交 </button>
+        <button class="btn btn-danger right" type="button" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i> 取消 </button>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<span ng-switch on="field.field_type">
+  <span ng-switch-when="textfield">{{data[field.field_title]}}</span>
+  <span ng-switch-when="number" >{{data[field.field_title]}}</span>
+  <span ng-switch-when="email" >{{data[field.field_title]}}</span>
+  <span ng-switch-when="date" >{{data[field.field_title] | date:'MM-dd-yyyy'}}</span>
+  <span ng-switch-when="dropdown" >
+  	<div ng-repeat="option in field.field_options" ng-show="option.option_value == data[field.field_title]" ng-bind="option.option_title"></div>
+  </span>
+  <span ng-switch-when="radio" >
+  	<div ng-repeat="option in field.field_options" ng-show="option.option_value == data[field.field_title]" ng-bind="option.option_title"></div>
+  </span>
+  <span ng-switch-when="textarea" >{{data[field.field_title]}}</span>
+  <span ng-switch-when="checkbox" >
+    <div ng-repeat="option in data[field.field_title]" ng-bind="option"></div>
+  </span>
+	<span ng-switch-when="password" >{{data[field.field_title]}}</span>
+</span>

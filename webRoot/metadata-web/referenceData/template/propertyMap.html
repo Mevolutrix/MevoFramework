@@ -1,0 +1,72 @@
+<div>
+    <div class="panel-body">
+        <div ng-hide="isShowAddInput" >
+            <button ng-show="isModify" type="button" class="btn btn-primary btn-sm" ng-click="add()">新增</button>
+        </div>
+        <table class="table schema_table">
+            <col width="20%" />
+            <col width="20%" />
+            <col width="10%" />
+            <col width="10%" />
+
+            <thead>
+            <tr>
+                <td>键值</td>
+                <td>描述</td>>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-show='isShowAddInput'>
+                <td><input ng-model="keyInput"/></td>
+                <td><input ng-model="descriptionInput"/></td>
+                <td><a type="button" class="btn btn-link btn-xs" ng-click="confirm()">确认</a></td>
+                <td><a type="button" class="btn btn-link btn-xs" ng-click="cancel()">取消</a></td>
+            </tr>
+            <tr id="input_property"  ng-repeat="o in propertyMap">
+                <td>{{o.key}}</td>
+                <td>{{o.description}}</td>
+                <td><a type="button" class="btn btn-link btn-xs" ng-show="isModify" ng-click="modify($index)">修改</a></td>
+                <td><a type="button" class="btn btn-link btn-xs" ng-show="isModify"  ng-click="delete($index)" >删除</a></td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modifyTab">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            基本信息
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="form-group" >
+                            <label  class="col-md-2 control-label">key</label>
+                            <div class="col-md-4">
+                                <input id="id" type="text" class="form-control schema_info"   ng-model="keyInput">
+                            </div>
+
+                            <label  class="col-md-2 control-label">description</label>
+                            <div class="col-md-4">
+                                <input type="text"  class="form-control schema_info"  ng-model="descriptionInput">
+                            </div>
+                        </div><!--form-group-->
+
+                    </div><!--form-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id={{index}} class="btn btn-primary btn-sm"  data-dismiss="modal" ng-click="save(id)">保存</button>
+                    <button type="button" class="btn btn-primary btn-sm"   data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

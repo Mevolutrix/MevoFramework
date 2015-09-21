@@ -1,0 +1,12 @@
+<div class="form-group clearfix">
+	<label class="col-md-4" ng-bind="field.field_title"></label>
+	<div class="col-md-12">
+		<label class="col-md-4"></label>
+		<div ng-repeat="option in field.field_options" class="checkbox-inline">
+			<label>
+				<input type="checkbox" value="{{option.option_value}}" ng-disabled="!field.field_disabled" ng-click=""/>
+				&nbsp;<span ng-bind="option.option_title"></span>
+			</label>
+		</div>
+	</div>
+</div>

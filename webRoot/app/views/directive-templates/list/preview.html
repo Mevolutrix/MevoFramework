@@ -1,0 +1,20 @@
+<div>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <div>字段预览</div>
+            </h3>
+        </div>
+        <form class="form-horizontal panel-body">
+					<table class="table table-striped table-bordered table-hover table-pager">
+						<tr>
+							<td ng-repeat="field in form.form_fields" ng-show="field.field_ingrid">
+								<a href="" ng-click="sortField = '{{field.field_title}}'; reverse = !reverse">{{field.field_title}}</a>
+							</td>
+							<td>操作</td>
+						</tr>
+					</table>
+        </form>
+		</div>
+</div>

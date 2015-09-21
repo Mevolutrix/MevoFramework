@@ -1,0 +1,7 @@
+<div class="form-group row">
+    <div class="col-md-3" ng-bind="field.field_desc"></div>
+    <div class="col-md-7">
+        <input type="password" ng-model="field.field_value" ng-disabled="field.field_disabled" validator>
+    </div>
+    <span class="required-error col-md-2" ng-show="field.field_value=='' && field.field_required==true">(* required)</span>
+</div>

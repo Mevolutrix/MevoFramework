@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label class="col-md-4 control-label" ng-bind="field.field_title"></label>
+    <div class="col-md-5">
+        <select class="form-control" ng-model="field.field_value">
+            <option value=""> -- 请选择 -- </option>
+            <option ng-repeat="option in field.field_options" value="{{option.option_value}}">{{option.option_title}}</option>
+        </select>
+    </div>
+    <div class="required-error col-md-2" ng-show="field.field_value==''&& field.field_required==true">(* 必填)</div>
+</div>

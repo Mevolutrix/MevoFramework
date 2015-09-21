@@ -1,0 +1,17 @@
+<div>
+    <div class="box box-element ui-draggable">
+        <a class="remove label label-important" ng-click="removeElm($event)"><i class="icon-remove icon-white"></i><div class="remove btn-danger btn-xs">删除</div></a>
+        <span class="drag label"><i class="icon-move"></i><div class="btn btn-success btn-xs " >拖动</div></span>
+            <span class="configuration"><button type="button" id={{id}}  class="btn btn-primary btn-xs" ng-click="injectParams($event)" role="button">注入参数</button>
+                <button type="button" id={{id}}  class="btn btn-primary btn-xs" ng-click="editeId($event)" role="button">选择页面</button>
+                <button type="button"  id={{id}}  class="btn btn-primary btn-xs" ng-click="editPage($event)" role="button">编辑页面</button>
+            </span>
+        <div class="preview">gridRefer</div>
+        <div class="view">
+            <div class="pageRefer">
+
+            </div>
+        </div>
+    </div>
+
+</div>

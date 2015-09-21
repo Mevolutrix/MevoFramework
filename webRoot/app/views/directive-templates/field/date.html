@@ -1,0 +1,12 @@
+<div class="form-group row form-inline">
+    <label class="col-md-3" ng-bind="field.field_desc"></label>
+    <div class="col-md-3">
+      <input type="text" class="form-control" data-date-format="mm/dd/yyyy" bs-datepicker ng-model="field.field_value" ng-required="field.field_required" ng-validate="field.field_validate" ng-disabled="field.field_disabled">
+      	<button type="button" class="btn btn-default glyphicon glyphicon-calendar" data-toggle="datepicker">
+          <i class="icon-calendar"></i>
+        </button>
+    </div>
+</div>
+
+<!-- 这里是验证规则 -->
+<!-- <span class="required-error" ng-show="field.field_validate && field.field_value == 0">(* required)</span> -->

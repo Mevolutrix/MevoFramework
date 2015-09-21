@@ -1,0 +1,95 @@
+<div>
+  <div class="panel-heading">
+     <div class="row">
+      <div class="col-md-9">
+
+
+      </div>
+      <div class="col-md-3">
+          <button type="button" class="btn btn-primary btn-sm" ng-hide="isModify"   ng-click="createRefer()">新增</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-hide="isModify" ng-click="modifyRefer()">修改</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-show="isModify"   ng-click="submitRefer()">提交</button>
+          <button type="button" class="btn btn-primary btn-sm" ng-show="isModify" ng-click="cancelRefer()">取消</button>
+      </div>
+     </div>
+
+
+
+  </div>
+    <div class="modal fade" id="selectColumns">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            基本信息
+                        </div>
+                        </div>
+                    </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label  class="col-md-2 control-label">对象名</label>
+                                <div class="col-md-4">
+                                    <select ng-model="schemadata.schema"  class="form-control  schema_info ex_schema_info" ng-change="selectSchema()"  ng-options="o.id  for o in schemas" >
+                                        <option ></option>
+                                    </select>
+                                </div>
+
+                                 <label  class="col-md-2 control-label">字段名</label>
+                                    <div class="col-md-4">
+                                        <select ng-model="schemadata.property" id="#property"  class="form-control  schema_info ex_schema_info" ng-change="selectProperty()"  ng-options="o.name  for o in properties" >
+                                            <option  ></option>
+                                        </select>
+                                    </div>
+                        </div><!--form-group-->
+
+
+
+                            </div><!--form-->
+                    </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" ng-show="secondShow" data-dismiss="modal" ng-click="saveId()">保存</button>
+                    <button type="button" class="btn btn-primary btn-sm"  ng-show="secondShow" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <title> PropertyMap</title>
+
+                <div class="form-group" >
+
+
+                </div><!--form-group-->
+
+            </div>
+            <p class="text-primary">id : <input ng-disabled="!isModify" ng-model="data.id" type="text"/></p>
+            <property-map my-property="data.propertyMap" is-modify="isModify"></property-map>
+       </div>
+    <div class="modal fade" id="isUpdateModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="panel panel-info">
+
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <p>你所填的信息可能会丢失，请确定是否载入数据</p>
+
+                    </div><!--form-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id={{index}} class="btn btn-primary btn-sm"  data-dismiss="modal" ng-click="updateData(id)">载入数据</button>
+                    <button type="button" class="btn btn-primary btn-sm"   data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

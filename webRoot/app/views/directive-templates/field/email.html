@@ -1,0 +1,9 @@
+<div class="form-group row">
+  <label class="col-md-3" ng-bind="field.field_desc"></label>
+  <div class="col-md-7">
+    <input  type = "email" class = "form-control" ng-model="field.field_value" ng-disabled="field.field_disabled" validator="{{field.field_patten.validator_patten}}" validator-invoke="{{field.field_patten.validator_invoke}}" validator-error="{{field.field_patten.validator_error}}"/>
+  </div>
+	<span class="required-error col-md-2" ng-show="field.field_value==''&& field.field_required==true">(* required)</span>
+</div>
+
+

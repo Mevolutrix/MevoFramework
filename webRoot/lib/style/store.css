@@ -1,0 +1,55 @@
+.display_table{
+   table-layout:fixed;
+   width:100%;
+}
+
+.display_table tbody tr td{
+   word-break:break-all;
+}
+
+.display_table tbody tr td input{
+	width:80%;
+}
+
+
+.display_table tbody tr td button{
+   
+   width:40%;
+
+}
+.tableoverflowstyle{
+    table-layout:fixed;
+    width:100%;
+}
+.tableoverflowstyle tbody tr td{
+    overflow: hidden;
+    direction: rtl;
+}
+
+.create_store{
+	display: none
+}
+
+.schema_table{
+	display:inline-block;
+    width:100%;
+}
+
+.schema_table tbody tr td{
+   word-break:break-all;
+}
+
+.display_table tbody tr td button{
+   
+   width:30%;
+
+}
+
+.selectdatatype{
+  width:80%;
+}
+
+.gridStyle {
+
+    height: 300px;
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "loginName": "uchenm",
+    "id": 1,
+    "firstName":"Ming",
+    "lastName":"Chen"
+  },
+  {
+    "loginName": "tony",
+    "id": 2,
+    "firstName":"Tony",
+    "lastName":"Zheng"
+  },
+  {
+    "loginName": "Jason",
+    "id": 3,
+    "firstName":"Jason",
+    "lastName":"Zhou"
+  }
+]

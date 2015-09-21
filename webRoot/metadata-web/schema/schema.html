@@ -1,0 +1,267 @@
+     <div class="row">
+		  <div class="col-md-3" id="schematree">
+		      <div class="zTreeDemoBackground left" ng-controller='schemaTreeController'>
+		         <ul schematree id="treeDemo" class="ztree" ng-model="selectNode"></ul>
+	          </div>
+		 </div>
+
+	
+			<div  ng-controller="schemaEdit" >
+				<div class="col-md-8">
+					<h4>{{title}}</h4>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							实体元数据
+							<button type="button" class="btn btn-primary btn-sm" ng-show="firstShow" ng-click="schema.createSchema()">新增</button>
+							<button type="button" class="btn btn-primary btn-sm" ng-show="firstShow" ng-click="schema.editSchema()">修改</button>
+							<!-- <button type="button" class="btn btn-primary btn-sm" ng-click="copySchema()">复制实体</button> -->
+							<button type="button" class="btn btn-primary btn-sm" ng-show="secondShow" ng-click="schema.saveSchema()">保存</button>
+							<button type="button" class="btn btn-primary btn-sm" ng-show="secondShow" ng-click="schema.cancelSchema()">取消</button>
+							
+						</div>
+						<div class="panel-body">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									基本信息
+								</div>
+
+								<div class="panel-body">
+									
+								<!--	 <div class="form-horizontal panel-body"    style="padding-top: 40px;" >
+                                         <div ng-repeat="(key, value) in schema">
+                                         <label  class="col-md-2 control-label"  >{{key}}</label>
+                                         <div class="col-md-4">
+                                             <input type="text" class="form-control schema_info"  ng-model="value">
+                                         </div>
+                                         </div>  -->
+									 <div class="form-group" >
+											<label  class="col-md-2 control-label">id</label>
+											<div class="col-md-4">
+											  <input type="text" class="form-control schema_info" ng-change="schema.entitySetNameChange()"  ng-model="schema.data.id">
+											</div>
+
+											<label  class="col-md-2 control-label">AppSpaceId</label>
+											<div class="col-md-4">
+											  <input type="text" readonly="true"  class="form-control schema_info"  ng-model="schema.data.appSpaceId">
+											</div>
+										    </div><!--form-group-->		
+								  
+								   		 	
+									
+										 <div class="form-group">
+												<label  class="col-md-2 control-label">数据集名称</label>
+												<div class="col-md-4">
+												
+												  <select ng-model="schema.data.entitySetName"  class="form-control  schema_info ex_schema_info"  ng-options="o.entitySetName as o.entitySetName for o in schema.entitySets" >
+						  						    <option ></option>
+						  					        </select>
+												</div>
+
+												<label  class="col-md-2 control-label">对象名</label>
+												<div class="col-md-4">
+												  <input type="text" class="form-control schema_info ex_schema_info"  ng-model="schema.data.entityName">
+												</div>
+										    </div><!--form-group-->		
+								  
+								   
+										 <div class="form-group">
+												<label  class="col-md-2 control-label">版本</label>
+												<div class="col-md-4">
+												  <input type="text" class="form-control schema_info ex_schema_info"  ng-model="schema.data.version">
+												</div>
+										    </div><!--form-group-->	
+									
+											 <div class="form-group">
+												<label  class="col-md-2 control-label">描述</label>
+												<div class="col-md-4">
+												  <textarea class="form-control schema_info ex_schema_info"   ng-model="schema.data.description"></textarea>
+												</div>
+										    </div><!--form-group-->
+
+							 		  </div><!--form-->
+							    </div><!--panel body-->
+
+						    <div class="panel panel-info">
+								<div class="panel-heading">
+									详细信息
+									<button type="button" class="btn btn-primary btn-sm"  ng-show="secondShow" ng-click="schema.propertyUntil.createProperty()">新增</button>
+								</div>
+								<div class="panel-body">
+									
+									<table class="table schema_table">		
+				  						<col width="10%" />
+										<col width="20%" />
+							            <col width="15%" />
+							            <col width="15%" />
+							            <col width="17%" />
+							            <col width="8%"/>
+							            <col width="15%"/>
+
+							  		<thead>
+							  			<tr>	 
+							  				<td>名称</td>
+											<td>描述</td>>
+							  				<td>pType</td>
+							  				<td>复杂类型</td>
+							  				<td>校验规则</td> 
+							  				<td>是否array</td>
+							  				<td>&nbsp&nbsp</td> 				
+							  			</tr>
+							  		</thead>
+							  		
+							  		<tbody>	
+							  			<tr id="input_property" ng-show='schema.propertyUntil.propertyInputShow&&secondShow'>
+								  				<td ><input type="text" class="selectdatatype" ng-model="schema.propertyUntil.propertyInput.name" ></td>
+											<td><input type="text" class="selectdatatype" ng-model="schema.propertyUntil.propertyInput.description" ></td>
+
+											<td >
+								  					<select ng-model="schema.propertyUntil.propertyInput.pType"  class="selectdatatype"  ng-options="o.id as o.name  for o in schema.propertyUntil.propertiesType" >
+						  						    <option ></option>
+						  					        </select>
+
+								  				</td>
+								  				<td >
+								  					
+								  						<select class="selectdatatype" ng-model="schema.propertyUntil.propertyInput.complexTypeName" ng-options = "o.id as o.id for o in schema.propertyUntil.spaceSchemaList">
+									  						<option >--请选择--</option>
+									  					</select>
+								  				</td>
+								  					<td >
+
+												<select class="selectValidator" ng-model="schema.propertyUntil.propertyInput.verificationRegEx" ng-options = "o as o.name for o in schema.propertiesValidator.data">
+													<option >--请选择--</option>
+												</select>
+												<button type="button" class="btn btn-primary btn-sm" ng-click="schema.propertiesValidator.addValidator()" >+</button>
+											</td>
+								  				<td><select ng-model="schema.propertyUntil.propertyInput.isArray" ng-options="o.value as o.key for o in schema.propertyUntil.boolean">
+
+								  				    </select>
+								  				<td ><button type="button" class="btn btn-primary btn-sm"  
+								  					  ng-click="schema.propertyUntil.confirmProperties()" ng-show="secondShow" >确认</button>
+								  					<button type="button" class="btn btn-primary btn-sm" 
+								  					  ng-click="schema.propertyUntil.quitProperties()" ng-show="secondShow" >取消</button>
+								  				</td>
+								  		</tr>
+
+							  			<tr ng-repeat="o in schema.data.properties">
+							  				<td>{{o.name}}</td>
+											<td>{{o.description}}</td>
+							  				<td >
+								  					<select ng-model="o.pType"  class="selectdatatype"  ng-options="o.id as o.name  for o in schema.propertyUntil.propertiesType" disabled="disabled">
+						  						    <option ></option>
+						  					        </select>
+
+								  				</td>
+							  				<td>{{o.complexTypeName}}</td>
+							  				<td>{{o.verificationRegEx.name}}</td>
+							  				<td>{{o.isArray}}</td>
+							  				<td>
+						  					<button type="button" class="btn btn-link btn-xs" ng-click="schema.propertyUntil.editProperty($index)" ng-show="secondShow">修改</button>
+					  						<button type="button" class="btn btn-link btn-xs" ng-click="schema.propertyUntil.delProperty($index)" ng-show="secondShow">删除</button>
+
+							  				</td>	  				
+							  			</tr>
+							  		</tbody>
+							    </table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--modal define-->
+					<div class="modal fade col-md-10" id="addValidator">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+									<h4 class="modal-title">验证规则编辑器</h4>
+								</div>
+								<div class="tab-pane">
+									<div class="well">
+
+										<div class="form-group">
+											<div class="col-md-8"><h4>验证规则设置</h4></div>
+											<div class="col-md-4">
+												<input type="text" ng-model="schema.propertiesValidator.query" class="form-control search-query" placeholder="搜索关键字" ng-value="">
+											</div>
+										</div>
+										<div class="form-fields">
+											<div class="row">
+												<div class="col-md-12">
+													<div>
+														<table class="table table-striped table-bordered table-hover table-pager">
+															<thead>
+															<tr>
+																<th><label>验证规则名称</label></th>
+																<th><lable>检查模式</lable></th>
+																<th><label>正则表达式</label></th>
+																<th><label>错误提示</label></th>
+																<th><label>操作</label></th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr ng-repeat="validator in schema.propertiesValidator.data | filter:schema.propertiesValidator.query |offset:schema.propertiesValidator.currentPage > schema.propertiesValidator.pageCount()?(schema.propertiesValidator.pageCount()-1)*schema.propertiesValidator.pageSize:(schema.propertiesValidator.currentPage-1)*schema.propertiesValidator.pageSize |limitTo:schema.propertiesValidator.pageSize ">
+                                                                <td><label>{{validator.name}}</label></td>
+																<td><label>{{validator.invokeType==0?"watch":"blur"}}</label></td>
+																<td><label>{{validator.pattern}}</label></td>
+																<td><label>{{validator.errMsg}}</label></td>
+																<td>
+
+																	<button class="btn btn-primary btn-sm" type="button" ng-click="schema.propertiesValidator.editValidatorField(validator,(schema.propertiesValidator.currentPage-1)*schema.propertiesValidator.pageSize+$index)">
+																		编辑
+																	</button>
+																	<!--<button class="btn btn-danger btn-sm right" type="button" ng-click="schema.propertiesValidator.deleteValidatorField((schema.propertiesValidator.currentPage-1)*schema.propertiesValidator.pageSize+$index)">-->
+																	<button class="btn btn-danger btn-sm right" type="button" ng-click="schema.propertiesValidator.deleteValidatorField(validator.name, (schema.propertiesValidator.currentPage-1)*schema.propertiesValidator.pageSize+$index)">
+
+																		删除
+																	</button>
+																</td>
+															</tr>
+															</tbody>
+															<tfoot>
+															<td colspan="5">
+															<div class = "pagination">
+																<li ng-class = "prevPageDisabled()"><a href ng-click="schema.propertiesValidator.prevPage()">上一页</a></li>
+																<li ng-class = 'disabled'><a href>第{{schema.propertiesValidator.currentPage}}页，共{{schema.propertiesValidator.pageCount()}}页</a></li>
+																<li ng-class = "nextPageDisabled()"><a href ng-click="schema.propertiesValidator.nextPage()">下一页</a></li>
+
+															</div>
+															</td>
+															</tfoot>
+														</table>
+													</div>
+													<div>
+														<table>
+															<tr>
+																<td><label>验证规则名称</label></td>
+																<td><input type="text" ng-model="schema.propertiesValidator.validatorField.name"></td>
+															</tr>
+															<tr>
+																<td><lable>检查模式</lable></td>
+																<td>{{schema.propertiesValidator.getInvokeTypes()}}
+																	<select ng-model="schema.propertiesValidator.validatorField.invokeType" ng-options="type for type in schema.propertiesValidator.getInvokeTypes()"></select>
+																</td>
+															</tr>
+															<tr>
+																<td><label>正则表达式</label></td>
+																<td><input type="text" ng-model="schema.propertiesValidator.validatorField.pattern"></td>
+															</tr>
+															<tr>
+																<td><label>错误提示</label></td>
+																<td><input type="text" ng-model="schema.propertiesValidator.validatorField.errMsg"></td>
+															</tr>
+														</table>
+													</div>
+													<button class="btn btn-primary btn-sm" type="button" ng-click="schema.propertiesValidator.addNewValidatorField(schema.propertiesValidator.validatorField)">保存</button>
+													<button class="btn btn-danger btn-sm" type="button" ng-click="schema.propertiesValidator.cancelValidator()">取消</button>
+													<button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">退出</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
+			</div>
+     </div>
+		 </div>

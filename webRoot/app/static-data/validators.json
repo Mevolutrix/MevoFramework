@@ -1,0 +1,34 @@
+[
+  {
+    "validator_id": 0,
+    "validator_name": "字符串验证规则",
+    "validator_tag": "name",
+    "validator_invoke": "watch",
+    "validator_patten": "/.+/",
+    "validator_error": "请输入正确字符"
+  },
+  {
+    "validator_id": 1,
+    "validator_name": "数字验证规则",
+    "validator_tag": "number",
+    "validator_invoke": "watch",
+    "validator_patten": "/^[-+]?[0-9]{1,}[\\.]?[0-9]*$/",
+    "validator_error": "请输入正确数字"
+  },
+  {
+    "validator_id": 3,
+    "validator_name": "手机号验证规则",
+    "validator_tag": "cellphone",
+    "validator_invoke": "watch",
+    "validator_patten": "/^1[0-9]{10}$/",
+    "validator_error": "请输入正确手机号"
+  },
+  {
+    "validator_id": 4,
+    "validator_name": "电子邮箱验证规则",
+    "validator_tag": "email",
+    "validator_invoke": "watch",
+    "validator_patten": "/^(([^<>()[\\]\\.,;:\\s@\"]+(\\.[^<>()[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/",
+    "validator_error": "请输入正确的电子邮件"
+  }
+]

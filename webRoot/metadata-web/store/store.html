@@ -1,0 +1,433 @@
+
+     <div class="row">
+         <div class="col-md-3">
+		      <div class="zTreeDemoBackground left" ng-controller="storeTreeController">
+		         <ul storetree id="treeDemo" class="ztree" showIcon="showIconForTree"></ul>
+	          </div>
+		 </div>
+
+		<div  ng-show="storeView" >
+			<div ng-controller="storeEdit" >
+
+				 <div class="col-md-6" >
+				 	<h4>{{title}}</h4>
+				 	<div  class="panel panel-info" >
+						<div class="panel-heading ">
+			                  数据集管理 			  
+						     <button type="button" class="btn btn-primary btn-sm" ng-click="store.createStore()" ng-show="firstShow">新增</button>
+						     <button type="button" class="btn btn-primary btn-sm" ng-click="store.editStore()" ng-show="firstShow" >修改</button>
+						     <button type="button" class="btn btn-primary btn-sm" ng-click="store.saveStore()" ng-show="secondShow">保存</button>
+						     <button type="button" class="btn btn-primary btn-sm" ng-click="store.cancelStore()" ng-show="secondShow" >取消</button>
+						     <button type="button" class="btn btn-primary btn-sm"   ng-click="store.publishStore()" ng-show="firstShow">发布</button>
+
+						    	  
+						</div>
+
+					    <div class="panel-body">	
+					       <div class="panel panel-info">
+							   <div class="panel-heading">
+									  数据集基础信息
+									
+									 				  
+								</div>
+				          
+						    
+							   <div class="form-horizontal panel-body "    style="padding-top: 40px;">
+
+							    <div class="form-group " role="form" >
+									<label  class="col-md-2 control-label">数据集名称</label>
+									<div class=" col-md-4">
+									  
+									  <input type="text" class="form-control store_info" ng-change="store.entitySetNameChange()"  ng-model="store.data.entitySetName">
+									</div>
+
+									<label  class="col-md-2 control-label">AppSpaceId</label>
+									<div class="col-md-4">
+									  <input type="text" class="form-control store_info" readonly="true"  ng-model="store.data.appSpaceId">
+									</div>
+							    </div>		
+							  
+							   		 	
+								
+								 <div class="form-group">
+								 	<label  class="col-md-2 control-label">主键</label>
+									<div class="col-md-4">
+									  <input type="text" class="form-control store_info ex_store_info"  ng-model="store.data.pKey">
+									</div>
+
+
+									<label  class="col-md-2 control-label">主键类型</label>
+									<div class="col-md-2">
+									       <select ng-model="store.data.pkeyType" ng-options="o.id as o.name  for o in store.pkeyTypes" class="form-control store_info ex_store_info">
+						  						<option >-- 请选择 --</option>
+						  					</select>
+									</div>
+
+								
+							    </div>		
+							  
+							   
+								  <div class="form-group">
+									  <label  class="col-md-2 control-label">存储类型</label>
+									  <div class="col-md-4">
+										  <select ng-model="store.data._storageType" ng-options="o.id as o.name  for o in store.storeTypes" class="form-control store_info ex_store_info">
+											  <option >-- 请选择 --</option>
+										  </select>
+									  </div>
+
+									<label  class="col-md-2 control-label">主键自增长</label>
+									<div class="col-md-1">
+										<input class="store_info ex_store_info"  ng-model="store.isPKeyAuto" type="checkbox" ng-checked="store.isPKeyAuto"/>
+									</div>
+
+									  <label  class="col-md-2 control-label">是否平面表</label>
+									  <div class="col-md-1">
+										  <input class="store_info ex_store_info"  ng-model="store.data.setIsFlat" type="checkbox" ng-checked="store.data.setIsFlat"/>
+									  </div>
+								   </div>
+
+								   <div class="form-group">
+									<label  class="col-md-2 control-label">描述</label>
+									<div class="col-md-4">
+									  <textarea class="form-control store_info ex_store_info"   ng-model="store.data.description"></textarea>
+									</div>
+
+									   <label  class="col-md-2 control-label">数据压缩字段</label>
+									   <div class="col-md-4">
+										   <input class="form-control store_info ex_store_info" ng-model="store.data.gzipProperty"></input>
+									   </div>
+							    </div>
+
+						 </div> 
+
+		         
+						      <div class="panel panel-info"  style="padding-top: 20px;">
+						      	   <div class="panel-heading">	
+										 索引信息							 
+										 <button type="button" class="btn btn-primary btn-sm" ng-click="store.indexUnit.createIndex()" ng-show="secondShow">新增索引</button>
+									 
+									</div><!-- panel-heading-->
+
+
+
+
+								  <div class="panel-body"  >
+								  	<table class="table display_table" >
+								  		<col width="8%" />
+				  						<col width="15%" />
+							            <col width="10%" />
+							            <col width="15%" />
+							            <col width="20%" />
+							            <col width="20%" />
+							            <col width="15%" />
+
+								  		<thead>
+								  			<tr>
+								  				<td>编号</td>
+								  				<td>索引名称</td>
+								  				<td>直接索引</td>
+								  				<td>markType</td>
+								  				<td>索引类型</td>
+								  				<td>表达式</td>
+								  				<td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+								  			</tr>
+								  		</thead>
+								  		<tbody>
+								  			<tr id="input_index" style="display:none">
+								  				<td>									  				  
+								  				</td>
+								  				<td ><div><input type="text" ng-model="store.indexUnit.indexInfoInput.path" ></div></td>
+
+								  				<!--<td ><div><input type="text" ng-model="store.indexUnit.indexInfoInput.direct" ></div></td>-->
+												<td><select ng-model="store.indexUnit.indexInfoInput.direct ">
+													<option >true</option>
+													<option>false</option>
+												</select>
+												</td>
+								  				
+								  				<td ><select ng-model="store.indexUnit.indexInfoInput.markType " ng-options="o.id as o.name  for o in store.indexUnit.markTypes"  >
+						  						    <option ></option>
+						  					        </select>
+						  					    </td>
+								  				<td > 
+								  					<select ng-model="store.indexUnit.indexInfoInput.indexDataType" class="selectdatatype" ng-options="o.id as o.name  for o in store.indexUnit.indexTypes" >
+						  						    <option ></option>
+						  					        </select>
+						  				        </td>
+
+
+								  				<td ><input type="text" ng-model="store.indexUnit.indexInfoInput.expression" ></td>
+								  				<td ><button type="button" class="btn btn-primary btn-sm"  
+								  					  ng-click="store.indexUnit.confirmIndex()">确认</button>
+								  					<button type="button" class="btn btn-primary btn-sm"
+								  					  ng-click="store.indexUnit.quitIndex()">取消</button>
+								  				</td>
+								  			</tr>
+								  			<tr ng-repeat="o in store.data.index">
+								  				<td>{{$index+1}}</td>
+								  				<td>{{o.path}}</td>
+								  				<td>{{o.direct}}</td>
+								  				<td ><select ng-model="o.markType" ng-options="o.id as o.name for o in store.indexUnit.markTypes"  disabled="disabled">
+						  						    <option ></option>
+						  					        </select>
+						  					    </td>
+								  				<td > 
+								  					<select ng-model="o.indexDataType"  class="selectdatatype"  ng-options="o.id as o.name for o in store.indexUnit.indexTypes" disabled="disabled">
+						  						    <option ></option>
+						  					        </select>
+						  				        </td>
+
+								  			  
+								  				<td>{{o.expression}}</td>
+								  				<td>	
+								  					<button type="button" class="btn btn-link btn-sm"  ng-show="secondShow" ng-click="store.indexUnit.delIndex($index)">删除</button>
+								  				</td>	
+								  			</tr>
+								  		</tbody>
+								    </table> 	
+								  </div><!-- /.panel-body-->
+
+
+
+							 </div><!--panel-->
+
+                             <div class="panel panel-info" style="padding-top: 20px;" >
+                                 <div class="panel-heading">
+                                     默认值信息
+                                  <!--   <button type="button" class="btn btn-primary btn-sm"  ng-show="secondShow"  data-animation="am-fade-and-scale" data-placement="center" bs-modal="model" >新增默认值</button> -->
+                                     <button type="button" class="btn btn-primary btn-sm"  ng-show="secondShow"  ng-click="store.defaultValueUntil.createDefaultValue()" >新增默认值</button>
+                                     <div class="modal fade" id="defaultValueModel">
+                                         <div class="modal-dialog">
+                                             <div class="modal-content">
+                                                 <div class="modal-header">
+                                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                     <h4 class="modal-title">请选择新增默认值对应的schema</h4>
+                                                 </div>
+                                                 <div class="modal-body">
+                                                     <div ng-show="store.set.data.entitySchemaList.length==0">
+                                                         <div class="alert-danger">该store没有设置schema,请先设置schema</div>
+                                                     </div>
+                                                     <select ng-model="store.defaultValueUntil.selected"  class="selectdatatype"  ng-show="store.set.data.entitySchemaList.length>0" ng-options="o.schemaName for o in store.set.data.entitySchemaList" >
+                                                     </select>
+
+                                                 </div>
+                                                 <div class="modal-footer">
+                                                     <button type="button" class="btn btn-primary" ng-click="store.defaultValueUntil.saveSelectSchema()" ng-show="store.set.data.entitySchemaList.length>0" data-dismiss="modal">确认</button>
+                                                     <button type="button" class="btn btn-default" data-dismiss="modal" >取消</button>
+                                                 </div>
+                                             </div><!-- /.modal-content -->
+                                         </div><!-- /.modal-dialog -->
+                                     </div><!-- /.modal -->
+                                     <!--ng-click="createDefaultValue()-->
+                                 </div>
+                                 <div>
+
+
+                                 </div>
+                                 <div class="panel-body">
+
+                                     <div class="gridStyle" ng-grid="store.defaultValueUntil.gridOptions "></div>
+                                 </div>
+
+                             </div>
+		              
+						     </div>
+					    </div>
+				    </div><!--mid-panel-->
+				  </div> <!--col-md-6-->
+					
+  				<div class="col-md-3"  >
+				    <div class="panel panel-info"  >
+		  				<div class="panel-heading">
+		  					所含Schema
+		  					 <button type="button" class="btn btn-primary btn-sm" ng-click="store.set.createSchema()" ng-show="secondShow">添加Schema</button>
+		  				</div>
+		  				<div class="panel-body">
+		  					<table class="table  tableoverflowstyle">
+		  						<col width="10%" />
+		  						<col width="50%" />
+					            <col width="20%" />
+					            <col width="20%" />
+
+						  		<thead>
+						  			<tr>	
+						  			    <td>&nbsp</td>			
+						  				<td>schema名称</td>	
+						  				<td>baseSchema</td>
+						  				<td>&nbsp&nbsp&nbsp</td>		  				
+						  			</tr>
+						  		</thead>
+						  		
+						  			<tr id="input_schema" style="display:none">
+						  				<td></td>
+						  				<td  >
+						  					<select class="selectdatatype" ng-model="store.set.schemaNameInput" >
+						  						<option ng-repeat = "o in store.set.spaceSchemaList">{{o.id}}</option>
+						  					</select>
+
+						  				</td>
+						  				<td>
+						  					<select ng-model="store.set.isBaseSchemaInput">
+						  						<option  value="true">是</option>
+						  						<option  value="false">否</option>
+						  					</select>
+
+
+						  				</td>
+						  				<td ><button type="button" class="btn btn-link"  
+						  					  ng-click=" store.set.confirmSchema()">确认</button>
+						  					<button type="button" class="btn btn-link" 
+						  					  ng-click="store.set.quitSchema()">取消</button>
+						  				</td>
+								  	</tr>
+						  			<tr ng-repeat="o in store.set.data.entitySchemaList">
+						  				<td>{{$index+1}}</td>
+						  				<td title={{o.schemaName}}>{{o.schemaName}}</td>
+						  				<td>{{o.isBaseSchema}}</td>
+						  				<td>
+						  					<button type="button" class="btn btn-link"  ng-click="store.set.delSchema($index)" ng-show="secondShow">删除</button>
+						  				</td>	  				
+						  			</tr>
+						  		
+						    </table>
+
+		  				</div>
+				    </div>
+				 </div><!--right-bar-->
+			</div>
+        </div>
+
+         <div  ng-show="schemaView">
+			<div  ng-controller="schemaEdit"  >
+
+				<div class="col-md-8" >
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							实体元数据
+						
+							
+						</div>
+						<div class="panel-body">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									基本信息
+								</div>
+
+								<div class="panel-body">
+									
+									 <div class="form-horizontal panel-body"    style="padding-top: 40px;">
+									    <div class="form-group" >
+											<label  class="col-md-2 control-label">id</label>
+											<div class="col-md-4">
+											  <input type="text" class="form-control schema_info"  ng-model="schema.id">
+											</div>
+
+											<label  class="col-md-2 control-label">AppSpaceId</label>
+											<div class="col-md-4">
+											  <input type="text" class="form-control schema_info"  ng-model="schema.appSpaceId">
+											</div>
+										    </div><!--form-group-->		
+								  
+								   		 	
+									
+											 <div class="form-group">
+												<label  class="col-md-2 control-label">实体集名称</label>
+												<div class="col-md-4">
+												  <input type="text" class="form-control schema_info"  ng-model="schema.entitySetName">
+												</div>
+
+												<label  class="col-md-2 control-label">对象名</label>
+												<div class="col-md-4">
+												  <input type="text" class="form-control schema_info"  ng-model="schema.entityName">
+												</div>
+										    </div><!--form-group-->		
+								  
+								   
+											 <div class="form-group">
+												<label  class="col-md-2 control-label">版本</label>
+												<div class="col-md-4">
+												  <input type="text" class="form-control schema_info"  ng-model="schema.version">
+												</div>
+										    </div><!--form-group-->	
+									
+											 <div class="form-group">
+												<label  class="col-md-2 control-label">描述</label>
+												<div class="col-md-4">
+												  <textarea class="form-control schema_info"   ng-model="schema.description"></textarea>
+												</div>
+										    </div><!--form-group-->	
+							 		  </div><!--form--> 	
+							    </div><!--panel body-->
+
+						    <div class="panel panel-info">
+								<div class="panel-heading">
+									详细信息
+									
+								</div>
+								<div class="panel-body">
+									
+									<table class="table schema_table">		
+				  						<col width="21%" />
+							            <col width="23%" />
+							            <col width="23%" />
+							            <col width="23%" />
+							            <col width="10%"/>
+
+							  		<thead>
+							  			<tr>	 
+							  				<td>名称</td>	
+							  				<td>pType</td>
+							  				<td>复杂类型</td>
+							  				<td>校验规则</td> 
+							  				<td>是否array</td> 
+
+							  			</tr>
+							  		</thead>
+							  		
+							  		<tbody>	
+							  			<tr id="input_property" ng-show='propertyShow'>								  			
+								  				<td ><input type="text" ng-model="property.name" ></td>
+								  				<td ><input type="text" ng-model="property.pType" ></td>
+								  				<td ><input type="text" ng-model="property.complexTypeName" ></td>
+								  				<td ><input type="text" ng-model="property.verificationRegEx" ></td>
+								  				
+								  		</tr>
+
+							  			<tr ng-repeat="o in schema.properties">						  										  				
+							  				<td>{{o.name}}</td>	
+							  				<td><select ng-model="o.pType" ng-options="o.id as o.name  for o in propertiesType"  disabled="disabled">
+						  						    <option ></option>
+						  					        </select></td>
+							  				<td>{{o.complexTypeName}}</td>
+							  				<td>{{o.verificationRegEx}}</td>
+							  				<td>{{o.isArray}}</td>
+
+							  			</tr>
+							  		</tbody>
+							    </table>
+
+
+
+								</div>
+								
+							</div>
+
+						</div>
+						
+					</div>
+				</div>
+
+			</div>		  
+			
+		
+     </div>
+
+         </div>
+  
+
+
+     
+	
+
+
+   </div>

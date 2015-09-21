@@ -1,0 +1,12 @@
+<div class="form-group row">
+    <label class="col-md-3" ng-bind="field.field_desc"></label>
+    <div class="col-md-7">
+			<select ng-model="field.field_value" ng-disabled="field.field_disabled" class="form-control">
+				<option value="">please select</option>
+				<option ng-repeat="option in field.field_options" 
+					ng-selected="option.option_title == data[field.field_title]"
+					value="{{option.option_value}}">{{option.option_title}}
+				</option>
+       </select>
+    </div>
+</div>

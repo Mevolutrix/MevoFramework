@@ -1,0 +1,12 @@
+<form class="form-horizontal panel-body">
+    <h3 ng-bind="newForm.name"></h3>
+    <div ng-repeat="field in newForm.form_fields">
+        <new-field field="field" bus-data="busData"></new-field>
+    </div>
+    <p class="text-center">
+    	<!-- {{newForm.form_fields}} -->
+        <span ng-repeat="btns in newForm.operateBtn">
+            <new-btns btns="btns"></new-btns>
+        </span>
+    </p>
+</form>

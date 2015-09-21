@@ -1,0 +1,29 @@
+<div>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">插入页预览</h3>
+        </div>
+        <form class="form-horizontal panel-body">
+            <h3 ng-bind="form.form_name"></h3>
+                <div ng-repeat="field in form.form_fields">
+                    <div ng-show="!form.submitted">
+                        <field-directive field="field"></field-directive>
+                    </div>
+                </div>
+                <!--<div class="form-actions">-->
+                    <!--<p class="text-center">-->
+                        <!--<button class="btn btn-success right" type="button" ng-disabled="!myForm.$valid" ng-click="submit()"><i class="icon-edit icon-white"></i> Submit Form </button>-->
+                        <!--<button class="btn btn-danger right" type="button" ng-click="cancel()"><i class="icon-remove icon-white"></i> Cancel </button>-->
+                    <!--</p>-->
+                <!--</div>-->
+        </form>
+    </div>
+</div>
+<!-- <div ng-show="form.submitted">
+    <h3>Submitted Data</h3>
+    <div ng-repeat="field in form.form_fields">
+        Field Title: <span ng-bind="field.field_title"></span><br>
+        Field Value: <span ng-bind="field.field_value"></span><br><br>
+    </div>
+</div> -->

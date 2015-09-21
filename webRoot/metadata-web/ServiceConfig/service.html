@@ -1,0 +1,263 @@
+<div class="row" ng-controller="serviceCtrl">
+    <div class="col-md-3" id="serviceTree">
+        <div class="zTreeDemoBackground left">
+            <ul servicetree id="treeDemo" class="ztree" ng-model="selectNode"></ul>
+        </div>
+    </div>   -
+
+    <div class="col-md-8">
+        <div   >
+
+            <div class="col-md-8 ">
+                <h4>服务名称：{{servicedata.name}}</h4>
+                <button class="btn btn-danger btn-sm" type="button" ng-click="AddService()" ng-show="serviceDisplay">
+                    添加
+                </button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="ModifyService(servicedata.id)" ng-show="serviceDisplay">
+                    编辑
+                </button>
+                <button class="btn btn-danger btn-sm" type="button" ng-click="DelService(servicedata.id)" ng-show="serviceDisplay">
+                    删除
+                </button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="SaveService(servicedata.id)" ng-show="!serviceDisplay">
+                    保存
+                </button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="CancelService()" ng-show="!serviceDisplay">
+                    取消
+                </button>
+                <!--显示-->
+                <div class="panel panel-info" ng-show="serviceDisplay&&!serviceAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <col width="25%" />
+                        <col width="75%" />
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>appAlias</label></td>
+                            <td><label>{{servicedata.appAlias}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>name</label></td>
+                            <td><label>{{servicedata.name}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>serviceURL</label></td>
+                            <td><label>{{servicedata.serviceURL}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>inSchemaId</label></td>
+                            <td><label>{{servicedata.inSchemaId}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>outSchemaId</label></td>
+                            <td><label>{{servicedata.outSchemaId}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>description</label></td>
+                            <td><label>{{servicedata.description}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>version</label></td>
+                            <td><label>{{servicedata.version}}</label></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//编辑-->
+                <div class="panel panel-info" ng-show="!serviceDisplay&&!serviceAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>appAlias</label></td>
+                            <td>
+                                <select ng-model="servicedata.appAlias" ng-options="s.name as s.name for s in space">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>name</label></td>
+                            <td><input type="text" ng-model="servicedata.name"></td>
+                        </tr>
+                        <tr>
+                            <td><label>serviceURL</label></td>
+                            <td>
+                                <select ng-model="tempData.httpMethod" ng-options="m.name as m.method for m in httpMethods">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>服务类型</label></td>
+                            <td>
+                                <select ng-model="tempData.serviceType" ng-options="s.name as s.name for s in serviceType">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-show="tempData.serviceType=='DSE'">
+                            <td><label>参数选择</label></td>
+                            <td>
+                                <label>store:</label>
+                                <select ng-model="tempData.store" ng-options="s for s in stores">
+                                </select>
+                                <br>
+                                <br>
+                                <label>主键操作:</label>
+                                <input type="checkbox" ng-checked="tempData.pKey" ng-model="tempData.pKey">
+                                <br>
+                                <br>
+                                <div ng-show="!tempData.pKey">
+                                    <label>filter:</label>
+                                    <select ng-model="tempData.filter" ng-options="s for s in storeIndex">
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <label>select:</label>
+                                    <select ng-model="tempData.select" ng-options="s for s in storeIndex">
+                                    </select>
+                                </div>
+
+
+
+                            </td>
+                        </tr>
+                        <tr ng-show="tempData.serviceType=='SME'">
+                            <td><label>参数选择</label></td>
+                            <td>
+                                <!--<select ng-model="tempData." ng-options="s.name for s in serviceType">-->
+                                <!--</select>-->
+                                <!--<br>-->
+                                <!--<select ng-model="tempData.serviceType" ng-options="s.name for s in serviceType">-->
+                                <!--</select>-->
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>inSchemaId</label></td>
+                            <td>
+                                <select ng-model="servicedata.inSchemaId" ng-options="s as s for s in schema">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>outSchemaId</label></td>
+                            <td>
+                                <select ng-model="servicedata.outSchemaId" ng-options="s as s for s in schema">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>description</label></td>
+                            <td><input type="text" ng-model="servicedata.description"></td>
+
+                        </tr>
+                        <tr>
+                            <td><label>version</label></td>
+                            <td><input type="text" ng-model="servicedata.version"></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//添加-->
+                <div class="panel panel-info" ng-show="serviceAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>appAlias</label></td>
+                            <td><select ng-model="temp.appAlias" ng-options="s.name as s.name for s in space">
+
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td><label>name</label></td>
+                            <td><input type="text" ng-model="temp.name"></td>
+                        </tr>
+                        <tr>
+                            <td><label>http Method</label></td>
+                            <td>
+                                <select ng-model="tempData.httpMethod" ng-options="m.name as m.method for m in httpMethods">
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>服务类型</label></td>
+                            <td>
+                                <select ng-model="tempData.serviceType" ng-options="s.name as s.name for s in serviceType">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-show="tempData.serviceType=='DSE'">
+                            <td><label>参数选择</label></td>
+                            <td>
+                                <label>store:</label>
+                                <select ng-model="tempData.store" ng-options="s for s in stores">
+                                </select>
+                                <br>
+                                <br>
+                                <label>主键操作:</label>
+                                <input type="checkbox" ng-checked="tempData.pKey" ng-model="tempData.pKey">
+                                <br>
+                                <br>
+                                <div ng-show="!tempData.pKey">
+                                    <label>filter:</label>
+                                    <select ng-model="tempData.filter" ng-options="s for s in storeIndex">
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <label>select:</label>
+                                    <select ng-model="tempData.select" ng-options="s for s in storeIndex">
+                                    </select>
+                                </div>
+
+
+
+                            </td>
+                        </tr>
+                        <tr ng-show="tempData.serviceType=='SME'">
+                            <td><label>参数选择</label></td>
+                            <td>
+                                <!--<select ng-model="tempData." ng-options="s.name for s in serviceType">-->
+                                <!--</select>-->
+                                <!--<br>-->
+                                <!--<select ng-model="tempData.serviceType" ng-options="s.name for s in serviceType">-->
+                                <!--</select>-->
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>inSchemaId</label></td>
+                            <td>
+                                <select ng-model="temp.inSchemaId" ng-options="s as s for s in schema">
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>outSchemaId</label></td>
+                            <td>
+                                <select ng-model="temp.outSchemaId" ng-options="s as s for s in schema">
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>description</label></td>
+                            <td><input type="text" ng-model="temp.description"></td>
+                        </tr>
+                        <tr>
+                            <td><label>version</label></td>
+                            <td><input type="text" ng-model="temp.version"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

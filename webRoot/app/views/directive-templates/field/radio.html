@@ -1,0 +1,11 @@
+<div class="form-group row clearfix">
+    <label class="col-md-12" ng-bind="field.field_desc"></label>
+    <div class="col-md-12">
+        <div ng-repeat="option in field.field_options" class="col-md-3">
+            <label>
+                <input type="radio" value="{{option.option_value}}" ng-model="field.field_value"  ng-required="field.field_required" ng-validate="field.field_validate" ng-disabled="field.field_disabled" />
+                &nbsp;<span ng-bind="option.option_title"></span>
+            </label>
+        </div>
+    </div>
+</div>

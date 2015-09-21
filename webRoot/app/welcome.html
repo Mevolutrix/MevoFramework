@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh_CN" ng-app="dashboardApp">
+<script id="tinyhippos-injected">if (window.top.ripple) {
+    window.top.ripple("bootstrap").inject(window, document);
+}</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="icon" href="http://v3.bootcss.com/favicon.ico">-->
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <!--<link href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="styles/dashboard.css" rel="stylesheet">
+</head>
+<!--<body ng-controller="AuthCtrl" ng-init="init()" style="padding: 10% 20%">-->
+
+<!--</body>-->
+<body ng-controller="AuthController" ng-init="init()">
+
+<div ng-hide="authenticated">
+
+    <ng-include src="'views/templates/login.html'"></ng-include>
+  <!--Login as user/user or admin/admin:<br>-->
+  <!--<label for="un">Username:</label><input id="un" type="text" ng-model="username"><br>-->
+  <!--<label for="pw">Password:</label><input id="pw" type="password" ng-model="password"><br>-->
+  <!--<button ng-click="login()">Login</button>-->
+</div>
+<div ng-show="authenticated">
+
+  <ng-include src="'views/templates/navbar.html'"></ng-include>
+
+  <div class="container-fluid">
+    <div class="row">
+      <ng-include src="'views/templates/sidebar.html'"></ng-include>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <ng-view></ng-view>
+      </div>
+    </div>
+  </div>
+
+  <!--Logged in as {{username}} <button ng-click="logout()">Logout</button><br><br>-->
+  <!--Token content: <pre>{{token | json}}</pre>-->
+</div>
+
+
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.2/angular.min.js"></script>-->
+<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.2/angular-route.min.js"></script>-->
+<script src="scripts/common/angular.min.js"></script>
+<script src="scripts/common/angular-route.min.js"></script>
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]>
+<script src="scripts/common/ie8-responsive-file-warning.js"></script>
+<![endif]-->
+<script src="scripts/common/ie-emulation-modes-warning.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<!--<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+<!--<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+<script src="scripts/common/html5shiv.min.js"></script>
+<script src="scripts/common/respond.min.js"></script>
+<![endif]-->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>-->
+<script src="scripts/common/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<!--<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+<script src="scripts/common/bootstrap.min.js"></script>
+<!--<script src="res/docs.min.js"></script>
+<script src="scripts/common/ui-bootstrap-tpls-0.4.0.min.js"></script>-->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="scripts/common/ie10-viewport-bug-workaround.js"></script>
+<script src="scripts/common/jquery-ui.js"></script>
+<script src="scripts/common/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
+<script src="scripts/dashboardApp.js"></script>
+<script src="scripts/SecurityInterceptor.js"></script>
+<script src="scripts/validator/angular-validator.js"></script>
+<script src="scripts/validator/angular-validator-rules.js"></script>
+
+<script src="scripts/controller/AuthController.js"></script>
+<script src="scripts/controller/countriesCtrl.js"></script>
+<script src="scripts/controller/usersCtrl.js"></script>
+<script src="scripts/controller/TabDemoController.js"></script>
+<script src="scripts/controller/DesignerCtrl.js"></script>
+
+<script src="scripts/service/countriesService.js"></script>
+<script src="scripts/service/CrudService.js"></script>
+
+<!-- <script src="scripts/controller/create.js"></script> -->
+<script src="scripts/controller/view.js"></script>
+<script src="scripts/controller/header.js"></script>
+
+<script src="scripts/service/form-service.js"></script>
+
+<script src="scripts/directives/form-directive.js"></script>
+<script src="scripts/directives/field-directive.js"></script>
+<script src="scripts/directives/list-directive.js"></script>
+<script src="scripts/directives/column-directive.js"></script>
+<script src="scripts/directives/preview-directive.js"></script>
+<script src="scripts/directives/validator-directive.js"></script>
+
+<!-- 20150428 -->
+<script src="scripts/lib/angular-resource.js"></script>
+<script src="scripts/service/storeservice.js"></script>
+
+
+</body>
+</html>

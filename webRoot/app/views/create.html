@@ -1,0 +1,168 @@
+<!--<h1>Create a new form</h1> <br>-->
+<!--<blockquote>-->
+    <!--<p>Select field type you want to add to the form below and click on 'Add Field' button. Don't forget to set field properties. After you finish creating the form, you can preview the form by clicking Preview Form button.</p>-->
+<!--</blockquote>-->
+
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#formBuilder" ng-click="previewOff()">创建列</a></li>
+    <li><a href="#Json">查看Json</a></li>
+    <li><a href="#list">表单预览</a></li>
+    <li><a href="#preview" ng-click="previewOn()">画面预览</a></li>
+    <!--<li><a href="#settings">Settings</a></li>-->
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="formBuilder">
+      <div class="well">
+<!--     <div class="form-fields" ng-hide="previewMode"> -->
+        <div class="form-fields">
+          <h3>选择控件</h3>
+          <div class="add-field">
+            <select ng-model="addField.new" ng-options="type.name as type.value for type in addField.types"></select>
+            <button type="submit" class="btn" ng-click="addNewField()"><i class="icon-plus"></i> 添加</button>
+          </div>
+
+          <br>
+
+          <p ng-show="form.form_fields.length == 0">还没有控件哦</p>
+          <accordion close-others="accordion.oneAtATime">
+            <accordion-group heading="{{field.field_title}}" ng-repeat="field in form.form_fields" class="ui-state-default">
+              <div class="accordion-edit">
+                <button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)"><i class="icon-trash icon-white"></i> 删除</button>
+                <div class="row">
+                  <div class="col-md-2">控件ID: </div>
+                  <div class="col-md-3 idclass">{{field.field_id}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">控件类型:</div>
+                  <div class="col-md-3">{{field.field_type}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">标题:</div>
+                  <div class="col-md-3"><input type="text" class="form-control" ng-model="field.field_title" value="{{field.field_title}}"></div>
+                </div>
+                <div class="row" ng-show="showAddOptions(field)">
+                  <div class="col-md-2">选项:</div>
+                  <div class="col-md-8">
+                    <div ng-repeat="option in field.field_options" class="row">
+                      <div class="col-md-5 form-group">
+                        <label class="col-md-3">标题</label>
+                        <div class="col-md-9">
+                          <input type="text" ng-model="option.option_title" value="{{option.option_title}}" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-5 form-group">
+                        <label class="col-md-3">值</label>
+                        <div class="col-md-9">
+                          <input type="text" ng-model="option.option_value" class="form-control">
+                        </div>
+                      </div>
+                      <a class="btn btn-danger btn-mini right" type="button" ng-click="deleteOption(field, option)">
+                        <i class="glyphicon glyphicon-remove"></i>
+                      </a>
+                    </div>
+                    <button class="btn btn-primary btn-small" type="button" ng-click="addOption(field)">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row" ng-show="!showValidate(field)">
+                  <div class="col-md-2">验证规则:</div>
+                  <div class="col-md-3">
+                    <select class="form-control" ng-model="field.field_patten" ng-options="patten.validator_name for patten in getPattens()"></select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">必填:</div>
+                  <div class="col-md-3">
+                    <label>
+                      <input type="radio" ng-value="true" ng-selected ng-model="field.field_required"/>
+                    &nbsp; 是</label>&nbsp;&nbsp;
+                    <label>
+                      <input type="radio" ng-value="false" ng-model="field.field_required"/>
+                    &nbsp; 否</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">不可用:</div>
+                  <div class="col-md-3">
+                    <label>
+                      <input type="radio" ng-value="true" ng-selected ng-model="field.field_disabled"/>
+                    &nbsp; 是</label>&nbsp;&nbsp;
+                    <label>
+                      <input type="radio" ng-value="false" ng-model="field.field_disabled"/>
+                    &nbsp; 否</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">数据列表中显示:</div>
+                  <div class="col-md-3">
+                    <label>
+                      <input type="radio" ng-value="true" ng-selected ng-model="field.field_ingrid"/>
+                      &nbsp; 是
+                    </label>&nbsp;
+                    <label>
+                      <input type="radio" ng-value="false" ng-model="field.field_ingrid"/>
+                      &nbsp; 否
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </accordion-group>
+          </accordion>
+
+          <p class="text-center">
+            <!--
+            <button class="btn btn-primary right" type="button" ng-click="previewOn()"><i class="icon-eye-open icon-white"></i> Preview Form</button>
+            -->
+            <button class="btn btn-danger right" type="button" ng-click="reset()"><i class="icon-refresh icon-white"></i> Reset</button>
+          </p>
+
+          <br><hr>
+
+
+        </div>
+        <!--
+          <div class="form-fields-preview" ng-show="previewMode">
+            <form-directive form="previewForm"></form-directive>
+
+            <p class="text-center">
+              <button class="btn btn-primary btn-large right" type="button" ng-click="previewOff()"><i class="icon-arrow-left icon-white"></i> Back to Create Mode</button>
+            </p>
+          </div>
+        -->
+      </div>
+
+      </div><!--end of form Builder-->
+    <div class="tab-pane" id="Json">
+      <div class="well">
+        <div >
+          <h4>Form object content:</h4>
+          <pre>{{ form | json }}</pre>
+        </div>
+      </div>
+    </div><!--end of Json tab-->
+
+    <div class="tab-pane" id="list">
+      <list-directive></list-directive>
+    </div>
+
+    <div class="tab-pane" id="preview">
+      <div class="well">
+          <form-directive form="previewForm"></form-directive>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  $(function () {
+    $('#myTab a:first').tab('show');//初始化显示哪个tab
+
+    $('#myTab a').click(function (e) {
+      e.preventDefault();//阻止a链接的跳转行为
+      $(this).tab('show');//显示当前选中的链接及关联的content
+    })
+  })
+</script>

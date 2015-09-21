@@ -1,0 +1,54 @@
+<form class="form-horizontal">
+  <div class="form-group row">
+    <label class="col-md-1">业务名:</label>
+    <div class="col-md-3">
+      <select class="form-control" ng-model="loadForm.ID" ng-options="select.id as select.name for select in loadForm.selects" ng-change="thisLoadForm()">
+        <option value="">请选择</option>
+      </select>
+    </div>
+    <div class="col-md-3 pull-right">
+      <input type="text" ng-model="query" class="form-control search-query" placeholder="搜索关键字">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-6 pull-right">
+      <div class="dataTables_filter" id="sample-table-2_filter">
+        <a class="btn btn-primary pull-right" href="javascript:void(0)" ng-click="preAddData()">
+          <i class="glyphicon glyphicon-plus"></i> 添加
+        </a>
+      </div>
+    </div>
+  </div>
+</form>
+<!--
+<div class="space-10"></div>
+<br/>
+
+&lt;!&ndash; #/forms/{{form.form_id}}/insert &ndash;&gt;
+<table class="table table-striped table-bordered table-hover table-pager">
+  <tr>
+    <td ng-repeat="field in form.form_fields |orderBy:field.field_id" ng-show="field.field_ingrid">
+      <a href="" ng-click="sortField = '{{field.field_title}}'; reverse = !reverse">{{field.field_desc}}</a>
+    </td>
+
+    <td class="text-center">操作</td>
+  </tr>
+  <tr ng-repeat="doc in data.data | filter:query | orderBy:sortField:reverse">
+    <td ng-repeat="field in form.form_fields | orderBy:field.field_id" ng-show="field.field_ingrid">
+      <column-directive field="field" data="doc"></column-directive>
+      &lt;!&ndash;<a href="#/{{data.form_id}}">{{doc[field.field_title]}}</a>&ndash;&gt;
+    </td>
+    &lt;!&ndash;<td>{{doc.firstName}}</td>&ndash;&gt;
+    &lt;!&ndash;<td>{{user.lastName}}</td>&ndash;&gt;
+    <td class="text-center">
+      <div class="btn-group">
+        <a class="btn btn-default btn-info" href="javascript:void(0)" ng-href="#/{{loadForm.ID}}/{{doc.id}}">
+          <i class="glyphicon glyphicon-pencil"></i> 编辑
+        </a>
+        <a class="btn btn-default btn-danger" href="javascript:void(0)" ng-click="delete(doc.id)">
+          <i class="glyphicon glyphicon-trash"></i> 删除
+        </a>
+      </div>
+    </td>
+  </tr>
+</table>-->

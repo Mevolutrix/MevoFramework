@@ -1,0 +1,154 @@
+<div class="row" ng-controller="svcCtrl">
+    <div class="col-md-3" id="serviceTree">
+        <div class="zTreeDemoBackground left">
+            <ul svctree id="treeDemo" class="ztree" ng-model="selectNode"></ul>
+        </div>
+    </div>   -
+
+    <div class="col-md-8">
+        <div   >
+            <div class="col-md-8 ">
+                <h4>服务名称：{{svcdata.alias}}</h4>
+
+                <!--<button class="btn btn-danger btn-sm" type="button" ng-click="SpecialSave(temp.alias)">-->
+                    <!--特殊添加-->
+                <!--</button>-->
+
+                    <button class="btn btn-danger btn-sm" type="button" ng-click="AddSVC()" ng-show="svcDisplay">
+                        添加
+                    </button>
+                    <button class="btn btn-primary btn-sm" type="button" ng-click="ModifySVC(svcdata.alias)" ng-show="svcDisplay">
+                        编辑
+                    </button>
+                    <button class="btn btn-danger btn-sm" type="button" ng-click="DelSVC(svcdata.alias)" ng-show="svcDisplay">
+                        删除
+                    </button>
+                    <button class="btn btn-primary btn-sm" type="button" ng-click="SaveSVC(svcdata.alias)" ng-show="!svcDisplay">
+                        保存
+                    </button>
+                    <button class="btn btn-primary btn-sm" type="button" ng-click="CancleSVC()" ng-show="!svcDisplay">
+                        取消
+                    </button>
+<!--//查看-->
+                <div class="panel panel-info" ng-show="svcDisplay&&!svcAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <col width="25%" />
+                        <col width="75%" />
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>alias</label></td>
+                            <td><label>{{svcdata.alias}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>storedType</label></td>
+                            <td>
+                                <label ng-if="svcdata.storedType==1">system</label>
+                                <label ng-if="svcdata.storedType==2">fileUserDefined</label>
+                                <label ng-if="svcdata.storedType==3">storeUserDefined</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>svcObjFullName</label></td>
+                            <td><label>{{svcdata.svcObjFullName}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>jarPath</label></td>
+                            <td><label>{{svcdata.jarPath}}</label></td>
+                        </tr>
+                        <tr>
+                            <td><label>assembly</label></td>
+                            <td><label>{{svcdata.assembly.substr(0,10)}}...</label></td>
+                        </tr>
+                    </table>
+                </div>
+   <!--修改-->
+                <div class="panel panel-info" ng-show="!svcDisplay&&!svcAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>alias</label></td>
+                            <td>
+                                <select ng-model="svcdata.alias" ng-options="s.name as s.name for s in space">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>storedType</label></td>
+                            <td>
+                                <select ng-model="svcdata.storedType">
+                                    <option value=1>system</option>
+                                    <option value=2>fileUserDefined</option>
+                                    <option value=3>storeUserDefined</option>
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>svcObjFullName</label></td>
+                            <td><input type="text" ng-model="svcdata.svcObjFullName"></td>
+                        </tr>
+                        <tr>
+                            <td><label>jarPath</label></td>
+                            <td><input type="text" ng-model="svcdata.jarPath" ng-if="svcdata.storedType==2">
+                                <input type="text" value="storedType不匹配" disabled ng-if="svcdata.storedType!=2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>assembly</label></td>
+                            <td><input type="text" value="storedType不匹配" disabled ng-if="svcdata.storedType!='3'">
+                                <input type="file" id="file1" ng-if="svcdata.storedType=='3'">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+<!--添加-->
+                <div class="panel panel-info" ng-show="svcAdd">
+                    <table class="table table-striped table-bordered table-hover table-pager">
+                        <tr>
+                            <th><label>参数名</label></th>
+                            <th><lable>参数值</lable></th>
+                        </tr>
+                        <tr>
+                            <td><label>alias</label></td>
+                            <td><input type="text" ng-model="temp.alias"></td>
+                        </tr>
+                        <tr>
+                            <td><label>storedType</label></td>
+                            <td>
+                                <select ng-model="temp.storedType">
+                                    <option value=1>system</option>
+                                    <option value=2>fileUserDefined</option>
+                                    <option value=3>storeUserDefined</option>
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>svcObjFullName</label></td>
+                            <td><input type="text" ng-model="temp.svcObjFullName"></td>
+                        </tr>
+                        <tr>
+                            <td><label>jarPath</label></td>
+                            <td><input type="text" ng-model="temp.jarPath" ng-if="temp.storedType==2">
+                                <input type="text" value="storedType不匹配" disabled ng-if="temp.storedType!=2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>assembly</label></td>
+                            <td>
+                                <input type="text" value="storedType不匹配" disabled ng-if="temp.storedType!='3'">
+                                <input type="file" id="file" ng-if="temp.storedType=='3'">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

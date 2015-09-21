@@ -1,0 +1,123 @@
+<accordion close-others="true">
+    <accordion-group heading="{{field.field_title}}" ng-repeat="field in form.form_fields" ng-repeat="field in form.form_fields" class="ui-state-default">
+        <form class="form-control">
+            <div class="form-group">
+                <label class="col-md-4" style="text-align: right">控件ID: </label>
+                <div class="col-md-6 idclass">{{field.field_id}}</div>
+                <div class="col-md-2">
+                    <button class="btn btn-danger btn-sm " type="button" ng-click="deleteField(field.field_id)">
+                    <i class="glyphicon glyphicon-trash " style="align-items: center"></i>&nbsp; 删除
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="text-align: right">控件类型:</label>
+                <div class="col-md-6">{{field.field_type}}</div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4" style="text-align: right">标题:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="field.field_title" value="{{field.field_title}}">
+                </div>
+            </div>
+            <div class="form-group"  ng-show="field.field_type=='pwdConfirm'">
+                <label class="col-md-4" style="text-align: right">绑定密码框控件</label>
+                <div class="col-md-6">
+                    <select ng-model="field.field_same"
+                        ng-options="passwordForm.field_id as 'ID：'+passwordForm.field_id+'   名称: '+passwordForm.field_title for passwordForm in getPasswordForm()"
+                        ng-change="getPwdConfirmPatten(field)">
+                    </select>
+                </div>
+            </div>
+            <!-- <div class="form-group"  ng-show="showAddOptions(field)">
+                <label class="col-md-4" style="text-align: right">多选或者单选</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="field.field_group" value="{{field.field_group}}">
+                </div>
+            </div> -->
+            <div class="form-group" ng-show="showAddOptions(field)">
+                <label class="col-md-4" style="text-align: right">选项:</label>
+                <div class="col-md-6">
+                    <div ng-repeat="option in field.field_options" class="form-group">
+                        <label class="col-sm-2">标题</label>
+                        <div class="col-sm-3">
+                            <input type="text"  class="form-control" ng-model="option.option_title" value="{{option.option_title}}">
+                        </div>
+                        <label class="col-sm-1">值</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" ng-model="option.option_value">
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-danger btn-mini right" type="button" ng-click="deleteOption(field, option)">
+                                <i class="glyphicon glyphicon-trash icon-white"> 删除 </i>
+                            </a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-small" type="button" ng-click="addOption(field)">
+                        <i class="glyphicon glyphicon-plus"> 添加 </i>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group" ng-show="!showValidate(field)">
+                <label class="col-md-4" style="text-align: right">验证规则:</label>
+                <div class="col-md-6">
+                <select ng-model="field.field_patten" ng-options="patten.name as patten.description for patten in getPattens(field.field_type)"></select>
+            </div>
+        </div>
+        <div class="form-group" ng-show="showLengthLimit(field)">
+            <label class="col-md-4" style="text-align: right">输入长度限制:</label>
+            <div class="col-md-6">
+                <label>最小长度:</label>
+                <input type="number" ng-model="field.field_minLength" style="width:50px" min="0">
+                <label>最大长度:</label>
+                <input type="number" ng-model="field.field_maxLength" style="width:50px" min="{{field.field_minLength}}">
+            </div>
+        </div>
+        <div class="form-group" ng-show="field.field_type=='number'">
+            <label class="col-md-4" style="text-align: right">输入大小限制:</label>
+            <div class="col-md-6">
+                保留<input type="number"style="width:50px" min="0" max="4" ng-model="field.field_step">位小数
+                <label>最小值:</label>
+                <input type="number" ng-model="field.field_minValue" style="width:50px" min="0">
+                <label>最大值:</label>
+                <input type="number" ng-model="field.field_maxValue" style="width:50px" min="{{field.field_minValue}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4" style="text-align: right">必填:</label>
+            <div class="col-md-6">
+                <label>
+                    <input type="radio" ng-value="true" ng-selected ng-model="field.field_required"/>
+                &nbsp; 是</label>&nbsp;&nbsp;
+                <label>
+                    <input type="radio" ng-value="false" ng-model="field.field_required"/>
+                &nbsp; 否</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4" style="text-align: right">不可用:</label>
+            <div class="col-md-6">
+                <label>
+                    <input type="radio" ng-value="true" ng-selected ng-model="field.field_disabled"/>
+                &nbsp; 是</label>&nbsp;&nbsp;
+                <label>
+                    <input type="radio" ng-value="false" ng-model="field.field_disabled"/>
+                &nbsp; 否</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4" style="text-align: right">列表中显示:</label>
+            <div class="col-md-6">
+                <label>
+                    <input type="radio" ng-value="true" ng-selected ng-model="field.field_ingrid"/>
+                    &nbsp; 是
+                </label>&nbsp;
+                <label>
+                    <input type="radio" ng-value="false" ng-model="field.field_ingrid"/>
+                    &nbsp; 否
+                </label>
+            </div>
+        </div>
+    </form>
+</accordion-group>
+</accordion>

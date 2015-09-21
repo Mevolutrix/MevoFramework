@@ -1,0 +1,273 @@
+<div>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <div>Form设计器</div>
+            </h3>
+        </div>
+        <div class="form-horizontal panel-body">
+            <div id="builder" ng-show="!showPreview">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">表格名称</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="newForm.name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-md-4 control-label">选择Schema</label>
+                    <div class="col-md-4">
+                        <select class="form-control" ng-model="forms" ng-change="selectNewSchema(forms)">
+                            <option value="" selected> -- 请选择 -- </option>
+                            <option ng-repeat="form in schema.forms" value="{{form.id}}">{{form.id}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-md-4 control-label">选择修改form</label>
+                    <div class="col-md-4">
+                        <select class="form-control" ng-model="modifyForms" ng-change="selectNewForm(modifyForms)">
+                            <option value="" selected> -- 请选择 -- </option>
+                            <option ng-repeat="cForm in cForms.forms" value="{{cForm.id}}">{{cForm.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">表信息</label>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-sm btn-primary" ng-click="addFormColumn()"><i class="glyphicon glyphicon-plus-sign"></i> 添加 </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div ng-repeat="column in newForm.form_fields" class="clearfix">
+                        <div class="col-md-3"><!-- {{column}} --></div>
+                        <div class="col-md-6 panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title col-md-10" ng-bind="column.field_title"></h4>
+                                    <button type="submit" class="btn btn-sm btn-danger" ng-click="delFormColumn(column.field_id)"><i class="glyphicon glyphicon-remove-sign"></i> 删除 </button>
+                                </div>
+                                <div class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">标题</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" ng-model="column.field_title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">控件类型</label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="column.field_type">
+                                                    <option value="">请选择</option>
+                                                    <option ng-repeat="option in controlSelect.options" value="{{option.value}}">{{option.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-show="showAddOptions(column.field_type)">
+                                            <label class="col-md-3 control-label">添加选项</label>
+                                            <div class="col-md-6">
+                                                <div ng-repeat="option in column.field_options" class="form-group">
+                                                    <!-- {{option}} -->
+                                                    <label class="col-sm-2">标题</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text"  class="form-control" ng-model="option.option_title" value="{{option.option_title}}">
+                                                    </div>
+                                                    <label class="col-sm-1">值</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" class="form-control" ng-model="option.option_value">
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <button type="submit" class="btn btn-sm btn-danger" ng-click="delOption(column.field_id, option.option_id)"><i class="glyphicon glyphicon-remove-sign"></i> 删除 </button>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-sm btn-primary" ng-click="addOption(column)"><i class="glyphicon glyphicon-plus-sign"></i> 添加 </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">关联表字段</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" ng-model="column.field_field">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">描述</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" ng-model="column.field_desc">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">是否必填</label>
+                                            <div class="col-md-9">
+                                                <label class="checkbox-inline col-md-2">
+                                                    <input type="radio" ng-model="column.field_required" ng-value="true"> 是
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="radio" ng-model="column.field_required" ng-value="false"> 否
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">是否可操作</label>
+                                            <div class="col-md-9">
+                                                <label class="checkbox-inline col-md-2">
+                                                    <input type="radio" ng-model="column.field_disabled" ng-value="true"> 是
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="radio" ng-model="column.field_disabled" ng-value="false"> 否
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">事件和Function</label>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-sm btn-primary" ng-click="addFormEvent(column.field_id)"><i class="glyphicon glyphicon-plus-sign"></i> 添加 </button>
+                                            </div>
+                                        </div>
+                                        <div ng-repeat="event in column.events">
+                                            <!-- {{event}} -->
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">事件</label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control" ng-model="event.event">
+                                                        <option value=""> -- 请选择 -- </option>
+                                                        <option value="{{e.id}}" ng-repeat="e in eventList.events">{{e.attr}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-sm btn-danger" ng-click="delFormEvent(column.field_id, event.id)"><i class="glyphicon glyphicon-remove-sign"></i> 删除 </button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">function名称</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="event.function">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">函数体</label>
+                                                <div class="col-md-6">
+                                                    <textarea cols="30" rows="4" class="form-control" ng-model="event.script"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">关联验证</label>
+                                            <div class="col-md-8">
+                                                <div>
+                                                    <label class="checkbox-inline" ng-repeat="validator in validators.validator">
+                                                        <!-- {{column.field_validators[0]}} -->
+                                                        <input type="radio" name="validate{{column.field_id}}" ng-click="setValidate(column.field_id, validator.name)"> {{validator.name}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-show="column.field_validators.length!=0">
+                                            <label class="col-md-3 control-label">验证方式</label>
+                                            <div class="col-md-8">
+                                                <div>
+                                                    <label class="checkbox-inline">
+                                                        <input type="radio" name="invoke{{column.field_id}}" ng-click="setValiInvoke(column.field_id, 0)"> 监控键盘
+                                                    </label>
+                                                    <label class="checkbox-inline">
+                                                        <input type="radio" name="invoke{{column.field_id}}" ng-click="setValiInvoke(column.field_id, 1)"> 失去焦点
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="formName" class="col-md-4 control-label">添加按钮</label>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-sm btn-primary" ng-click="addFormBtn()"><i class="glyphicon glyphicon-plus-sign"></i> 添加 </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div ng-repeat="btn in newForm.operateBtn" class="clearfix">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title col-md-10" ng-bind="btn.name"></h4>
+                                    <button type="submit" class="btn btn-sm btn-danger" ng-click="delFormBtn(btn.id)"><i class="glyphicon glyphicon-remove-sign"></i> 删除 </button>
+                                </div>
+                                <div class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">名称</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" ng-model="btn.name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">样式</label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="btn.class">
+                                                    <option value="" selected> -- 请选择 -- </option>
+                                                    <option value="{{class.class}}" ng-repeat="class in classes.classes">{{class.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">事件和Function</label>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-sm btn-primary" ng-click="addFormBtnEvent(btn.id)"><i class="glyphicon glyphicon-plus-sign"></i> 添加 </button>
+                                            </div>
+                                        </div>
+                                        <div ng-repeat="event in btn.events">
+                                            <!-- {{event}} -->
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">事件</label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control" ng-model="event.event">
+                                                        <option value=""> -- 请选择 -- </option>
+                                                        <option value="{{e.id}}" ng-repeat="e in eventList.events">{{e.attr}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn btn-sm btn-danger" ng-click="delFormBtnEvent(btn.id, event.id)"><i class="glyphicon glyphicon-remove-sign"></i> 删除 </button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">function名称</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" ng-model="event.function">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">函数体</label>
+                                                <div class="col-md-6">
+                                                    <textarea cols="30" rows="4" class="form-control" ng-model="event.script"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="preview" ng-show="showPreview">
+                <div id="preContain"></div>
+            </div>
+        </div>
+        <div class="panel-footer">{{newForm | json}}</div>
+    </div>
+    <p class="text-center" ng-show="!btnsPreview">
+        <button class="btn btn-danger right" type="button" ng-click="newResetForm()"><i class="glyphicon glyphicon-refresh"></i> 重置 </button>
+        <button class="btn btn-success left" type="button" ng-click="previewOn()" ng-disabled="disabled()"><i class="glyphicon glyphicon-ok"></i> 预览 </button>
+    </p>
+    <p class="text-center" ng-show="btnsPreview">
+        <button class="btn btn-success center" type="button" ng-click="preStep()" ng-show="newForm.form_fields.length!=0"><i class="glyphicon glyphicon-ok"></i> 上一步 </button>
+        <button class="btn btn-success center" type="button" ng-click="saveFormJson()" ng-show="newForm.form_fields.length!=0 && !showUpdateBtn" ng-disabled="validateForm()"><i class="glyphicon glyphicon-ok"></i> 保存 </button>
+        <button class="btn btn-success center" type="button" ng-click="updateFormJson()" ng-show="newForm.form_fields.length!=0 && showUpdateBtn" ng-disabled="validateForm()"><i class="glyphicon glyphicon-ok"></i> 保存 </button>
+    </p>
+</div>

@@ -1,0 +1,21 @@
+<!--<br>
+<input id="{{field.field_id}}" type="checkbox" ng-true-value="1" ng-model="field.field_value" ng-false-value="0" ng-required="field.field_required" ng-validate="field.field_validate" ng-disabled="field.field_disabled" ng-checked="{{data[field.field_title]}}"/>
+<label class="form-field-label" for="{{field.field_id}}" ng-cloak ng-bind="field.field_title"></label> -->
+
+<div class="row" clearfix>
+	<label class="col-md-12" ng-bind="field.field_desc"></label>
+	<div class="col-md-12">
+
+		<div ng-repeat="option in field.field_options" class="col-md-3"> 
+		<!-- {{option}} -->
+			<label>
+				<input type="checkbox" value="{{option.option_value}}" ng-disabled="field.field_disabled" ng-checked="ischecked(option,data,field.field_title)" ng-required="field.field_required" ng-validate="field.field_validate" ng-click="toggle($event, field.field_title)" />
+				&nbsp;<span ng-bind="option.option_title"></span>
+			</label>
+        <!-- {{data.data}} -->
+		<!-- {{data}} -->
+		</div>
+	</div>
+</div>
+
+<!--  ng-model="option.option_title"    -->

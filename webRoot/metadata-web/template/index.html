@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" ng-app="MyApp">
+<head>
+    <title> New Document </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link  href="../lib/style/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+    <link href="../lib/style/bootstrap.css" rel="stylesheet">
+    <link href="../lib/style/store.css" rel="stylesheet">
+    <link href="../lib/style/ng-grid.css" rel="stylesheet">
+    <link href="../lib/style/angular-motion.css" rel="stylesheet">
+    <link href="../lib/style/layout.css" rel="stylesheet">
+    <link href="../lib/style/jquery-ui.css" rel="stylesheet">
+
+</head>
+
+<body  ng-controller="treeManage">
+<!--modal define-->
+
+    <ul parentstree id="treeDemo" class="ztree" showIcon="showIconForTree"
+        schema-name="schemaName"  parentId="filtercolumn" send-event="sendEvent" space="space"></ul>
+
+
+
+<script src="/WEB/Portal/metadata-web/lib/lib.js"></script>
+<script src="controller.js"></script>
+
+
+
+<script>
+    $(".navbar-nav").find('li').click(function(){
+        $(this).parent().find('li').removeClass("btn-primary").find("a").css({color:"#777"})
+        $(this).addClass("btn-primary").find("a").css({color:"#fff"});
+    });
+
+</script>
+
+</body>
+</html>

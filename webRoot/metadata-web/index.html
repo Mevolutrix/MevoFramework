@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" ng-app="MyApp">
+  <head>
+    <title> New Document </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="lib/style/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link href="lib/style/bootstrap.css" rel="stylesheet">
+    <link href="lib/style/store.css" rel="stylesheet">
+    <link href="lib/style/ng-grid.css" rel="stylesheet">
+    <link href="lib/style/angular-motion.css" rel="stylesheet">
+    <link href="lib/style/layout.css" rel="stylesheet">
+    <link href="lib/style/jquery-ui.css" rel="stylesheet">
+  </head>
+  <body  ng-controller="storeManage">
+    <!--modal define-->
+    <div class="modal fade" role="dialog" id="spacemodal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">新增schema</h4>
+          </div>
+          <div class="modal-body">
+            <lable >请选择space</lable>
+            <select ng-model="tempSpace" ng-options="o.name for o in spaces" >
+              <option >-- 请选择space --</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancelSpace()" data-dismiss="modal" >取消</button>
+            <button type="button" class="btn btn-primary" ng-click="saveSpace()" data-dismiss="modal">保存</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!--   /.modal-dialog -->
+    </div> <!--   /.modal -->
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a  class="navbar-brand" href="#">MetaData</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-inner navbar-collapse" id="">
+        <ul class="nav navbar-nav bg-info">
+          <li ><a href="#" ng-click="selectSpace()">&nbsp{{space.name}}</a></li>
+          <li ><a href="#/store">Store</a></li>
+          <li ><a href="#/schema">Schema</a></li>
+          <li><a href="#/referenceData">referenceData</a></li>
+          <li><a href="#/svcConfig">SVCConfig</a></li>
+          <li><a href="#/serviceConfig">ServiceConfig</a></li>
+          
+          <li><a href="#/UIDesigner">UI Designer</a></li>
+          <li><a href="#/gridDesigner">gridDesigner</a></li>
+          <li><a href="#/formDesigner">formDesigner</a></li>
+          <li><a href="#/testData">测试页面</a></li>
+        <!--<li><a href="#/TemplateTest">模板页测试</a></li>-->
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav>
+            
+    <div class="container-fluid" >
+      <ng-view></ng-view>
+    </div>   
+            
+            
+    <script type="text/javascript" src="lib/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="lib/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="lib/Angular.js"></script>
+    <script type="text/javascript" src="lib/angular-resource.js"></script>
+    <script type="text/javascript" src="lib/angular-route.js"></script>
+    <script type="text/javascript" src="lib/angular-animate.js"></script>
+    
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/ng-grid-2.0.7.debug.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="store/storecontroller.js"></script>
+    <script type="text/javascript" src="storeinfo/storeinfocontroller.js"></script>
+    <script type="text/javascript" src="schema/schemacontroller.js"></script>
+    <script type="text/javascript" src="referenceData/propertyReferCtl.js"></script>
+    <script type="text/javascript" src="store/storedirective.js"></script>
+    <script type="text/javascript" src="schema/schemadirective.js"></script>
+    <script type="text/javascript" src="referenceData/referenceDirective.js"></script>
+    <script type="text/javascript" src="store/storemodel.js"></script>
+    <script type="text/javascript" src="components/modal/jsonmodel.js"></script>
+    <script type="text/javascript" src="components/directive/angular-validator-rules.js"></script>
+    <script type="text/javascript" src="components/directive/angular-validator.js"></script>
+    <script type="text/javascript" src="components/filter/filters.js"></script>
+    <script type="text/javascript" src="SVCConfig/svcCtrl.js"></script>
+    <script type="text/javascript" src="SVCConfig/svcDirective.js"></script>
+    <script type="text/javascript" src="ServiceConfig/serviceCtrl.js"></script>
+    <script type="text/javascript" src="ServiceConfig/serviceDirective.js"></script>
+    <script type="text/javascript" src="TestPage/testDataCtrl.js"></script>
+
+    <script type="text/javascript" src="store/storeservice.js"></script>
+    
+    <script type="text/javascript" src="schema/schemamodel.js"></script>
+    <script src="components/directive/Directive.js"></script>
+    <script src="UIDesigner/cmsController.js"></script>
+    <script src="UIDesigner/Release/releaseController.js"></script>
+    <script src="UIDesigner/Release/releaseDirective.js"></script>
+    <script src="UIDesigner/layout/layoutController.js"></script>
+    <script src="UIDesigner/layout/layoutDirective.js"></script>
+    <script src="UIDesigner/layout/layoutService.js"></script>
+    <script src="lib/jquery.cleanHtml.js"></script>
+    <script src="components/service/service.js"></script>
+    <script src="components/modal/pageModal.js"></script>
+    <script type="text/javascript" src="components/directive/templateDirective.js"></script>
+    <script src="lib/jsxcompressor.min.js"></script>
+    <script src="components/modal/ReleasePageResource.js"></script>
+    <script src ="lib/jquery-ui.js"></script>
+    <!--   20160626 20:57 created by mark<daijx@techdop.cffex.net>  -->
+    <script src="gridDesigner/newDesigner.js"></script>
+    <script src="gridDesigner/NewService.js"></script>
+    <script src="formDesigner/new-field-directive.js"></script>
+    <script src="formDesigner/new-form-directive.js"></script>
+    <script src="formDesigner/new-button-directive.js"></script>
+    <script>
+      $(".navbar-nav").find('li').click(function(){
+      $(this).parent().find('li').removeClass("btn-primary").find("a").css({color:"#777"})
+      $(this).addClass("btn-primary").find("a").css({color:"#fff"});
+      });
+    </script>
+  </body>
+</html>

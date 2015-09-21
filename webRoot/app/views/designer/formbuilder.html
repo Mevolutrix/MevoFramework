@@ -1,0 +1,62 @@
+<div>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+            <div>元数据设计器</div>
+            </h3>
+        </div>
+        <form class="form-horizontal panel-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">加载表</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="loadForm.ID" ng-options="select.name as select.description for select in loadForm.selects" ng-focus="loadForms(); "  ng-change="thisLoadForm()">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">新建表</label>
+            </div>
+            <div class="form-group">
+                <label for="formId" class="col-md-2 control-label">元数据ID</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="formId" name="form-id" ng-disable="true" ng-model="form.form_id" validator="[requiredBlur]" placeholder="元数据ID">
+                    <!--<input type="text" ng-model="user.fullname" validator="[requiredBlur]" class="form-control" id="required1" placeholder="姓名" />-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="formName" class="col-md-2 control-label">元数据描述</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="formName" name="formName" ng-disable="true" ng-model="form.form_name" validator="[requiredBlur]" placeholder="元数据描述">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="formName" class="col-md-2 control-label">添加字段</label>
+                <div class="col-md-8">
+                <select ng-model="addField.new" ng-options="type.name as type.description for type in addField.types" class="form-control" placeholder="字段类型"></select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-sm btn-primary" ng-click="addNewField()"><i class="glyphicon glyphicon-plus-sign"></i> 添加</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <p ng-show="form.form_fields.length == 0">请定义元数据字段！</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="formName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <ng-include src="'views/designer/FieldEditor.html'"></ng-include>
+            </div>
+        </div>
+    </form>
+    <div class="panel-footer">{{message}}</div>
+</div>
+<p class="text-center">
+    <button class="btn btn-success left" type="button" ng-click="saveJson()" ng-disabled="form.form_fields.length == 0"><i class="glyphicon glyphicon-ok"></i> 保存 </button>
+    <button class="btn btn-danger right" type="button" ng-click="reset()"><i class="glyphicon glyphicon-refresh"></i> 重置 </button>
+</p>
+</div>

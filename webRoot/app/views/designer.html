@@ -1,0 +1,59 @@
+<div ng-controller="DesignerCtrl">
+    <tabset justified="false">
+        <tab heading="元数据设计器">
+            <ng-include src="'views/designer/formbuilder.html'"></ng-include>
+        </tab>
+        <tab heading="查看Json">
+            <div>
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                        查看Json
+                        </h3>
+                    </div>
+                    <div class="form-horizontal panel-body">
+                       {{ form | json }}
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="字段预览">
+            <preview-directive></preview-directive>
+        </tab>
+        <tab heading="插入页预览" ng-click="previewOn()">
+            <form-directive form="form"></form-directive>
+        </tab>
+        <tab heading="查看Json Schema">
+            <div>
+            <br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                        查看Json Schema
+                        </h3>
+                    </div>
+                    <div class="form-horizontal panel-body">
+                        {{ fromSchema | json }}
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="验证规则设置" ng-click="setValidator()">
+            <validator-directive></validator-directive>
+        </tab>
+        <tab heading="测试">
+            <div>
+            <br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">测试</h5>
+                    </div>
+                    <div class="form-horizontal panel-body">
+                        <h3>LAYOUT2</h3>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
